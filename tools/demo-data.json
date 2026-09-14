@@ -1,0 +1,2288 @@
+{
+  "anchor": "2026-09-14",
+  "success": true,
+  "me": {
+    "email": "",
+    "name": "鈴木",
+    "role": "管理者",
+    "canEdit": true,
+    "isOwner": true
+  },
+  "settings": {
+    "clubName": "OneStep",
+    "subTitle": "運営ボード（デモ）",
+    "memberFee": 400,
+    "visitorFee": 400,
+    "fiscalStartMonth": 4,
+    "openingBalance": 48000,
+    "annualDues": 3000,
+    "duesCategory": "年会費",
+    "loanCategory": "貸借",
+    "duesProration": "しない",
+    "transferNote": "",
+    "kinds": [
+      "練習会",
+      "大会",
+      "合宿",
+      "その他"
+    ],
+    "venues": [
+      "中央公園テニスコート",
+      "東運動公園テニスコート",
+      "市民体育館",
+      "その他"
+    ],
+    "incomeCategories": [
+      "年会費",
+      "貸借",
+      "その他収入"
+    ],
+    "expenseCategories": [
+      "ボール",
+      "備品",
+      "貸借",
+      "その他支出"
+    ],
+    "entrySteps": [
+      "様式入手",
+      "出場者確定",
+      "申込書作成",
+      "申込送信",
+      "参加料準備",
+      "受理確認"
+    ],
+    "feeUnits": [
+      "チーム",
+      "ペア",
+      "人"
+    ],
+    "applyMethods": [
+      "メール",
+      "FAX",
+      "郵送",
+      "持参"
+    ],
+    "venueCourtFees": {
+      "中央公園テニスコート": 1200,
+      "東運動公園テニスコート": 1400
+    }
+  },
+  "events": [
+    {
+      "id": "EV0001",
+      "date": "2026-06-06",
+      "kind": "練習会",
+      "venue": "中央公園テニスコート",
+      "title": "",
+      "owner": "高橋",
+      "memberCount": 8,
+      "visitorCount": 0,
+      "memberFee": 400,
+      "visitorFee": 400,
+      "otherIncome": 0,
+      "income": 3200,
+      "courtFee": 2400,
+      "supplyCost": 0,
+      "otherExpense": 0,
+      "expense": 2400,
+      "balance": 800,
+      "memo": "",
+      "participants": [
+        {
+          "key": "MB0001",
+          "name": "鈴木",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0002",
+          "name": "高橋",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0003",
+          "name": "伊藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0004",
+          "name": "渡辺",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0005",
+          "name": "山本",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0006",
+          "name": "斎藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0007",
+          "name": "小林",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0008",
+          "name": "加藤",
+          "email": "",
+          "unpaid": false
+        }
+      ],
+      "unpaid": [],
+      "unpaidCount": 0,
+      "unpaidAmount": 0,
+      "visitorNames": [],
+      "timeslot": "19:00-21:00",
+      "adjustment": 0,
+      "shared": "共有済み",
+      "updatedAt": "2026-06-06 21:40",
+      "version": "op-ev-1"
+    },
+    {
+      "id": "EV0002",
+      "date": "2026-06-13",
+      "kind": "練習会",
+      "venue": "東運動公園テニスコート",
+      "title": "",
+      "owner": "鈴木",
+      "memberCount": 7,
+      "visitorCount": 0,
+      "memberFee": 400,
+      "visitorFee": 400,
+      "otherIncome": 0,
+      "income": 2800,
+      "courtFee": 2800,
+      "supplyCost": 0,
+      "otherExpense": 0,
+      "expense": 2800,
+      "balance": 0,
+      "memo": "",
+      "participants": [
+        {
+          "key": "MB0006",
+          "name": "斎藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0007",
+          "name": "小林",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0008",
+          "name": "加藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0009",
+          "name": "吉田",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0010",
+          "name": "松本",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0011",
+          "name": "井上",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0012",
+          "name": "木村",
+          "email": "",
+          "unpaid": false
+        }
+      ],
+      "unpaid": [],
+      "unpaidCount": 0,
+      "unpaidAmount": 0,
+      "visitorNames": [],
+      "timeslot": "19:00-21:00",
+      "adjustment": 0,
+      "shared": "共有済み",
+      "updatedAt": "2026-06-13 21:40",
+      "version": "op-ev-2"
+    },
+    {
+      "id": "EV0003",
+      "date": "2026-06-20",
+      "kind": "練習会",
+      "venue": "中央公園テニスコート",
+      "title": "",
+      "owner": "鈴木",
+      "memberCount": 9,
+      "visitorCount": 1,
+      "memberFee": 400,
+      "visitorFee": 400,
+      "otherIncome": 0,
+      "income": 4000,
+      "courtFee": 2400,
+      "supplyCost": 0,
+      "otherExpense": 0,
+      "expense": 2400,
+      "balance": 1600,
+      "memo": "",
+      "participants": [
+        {
+          "key": "MB0011",
+          "name": "井上",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0012",
+          "name": "木村",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0001",
+          "name": "鈴木",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0002",
+          "name": "高橋",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0003",
+          "name": "伊藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0004",
+          "name": "渡辺",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0005",
+          "name": "山本",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0006",
+          "name": "斎藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0007",
+          "name": "小林",
+          "email": "",
+          "unpaid": false
+        }
+      ],
+      "unpaid": [],
+      "unpaidCount": 0,
+      "unpaidAmount": 0,
+      "visitorNames": [
+        "体験参加の方"
+      ],
+      "timeslot": "19:00-21:00",
+      "adjustment": 0,
+      "shared": "共有済み",
+      "updatedAt": "2026-06-20 21:40",
+      "version": "op-ev-3"
+    },
+    {
+      "id": "EV0004",
+      "date": "2026-06-27",
+      "kind": "練習会",
+      "venue": "東運動公園テニスコート",
+      "title": "",
+      "owner": "高橋",
+      "memberCount": 6,
+      "visitorCount": 0,
+      "memberFee": 400,
+      "visitorFee": 400,
+      "otherIncome": 0,
+      "income": 2400,
+      "courtFee": 2800,
+      "supplyCost": 0,
+      "otherExpense": 0,
+      "expense": 2800,
+      "balance": -400,
+      "memo": "",
+      "participants": [
+        {
+          "key": "MB0004",
+          "name": "渡辺",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0005",
+          "name": "山本",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0006",
+          "name": "斎藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0007",
+          "name": "小林",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0008",
+          "name": "加藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0009",
+          "name": "吉田",
+          "email": "",
+          "unpaid": false
+        }
+      ],
+      "unpaid": [],
+      "unpaidCount": 0,
+      "unpaidAmount": 0,
+      "visitorNames": [],
+      "timeslot": "19:00-21:00",
+      "adjustment": 0,
+      "shared": "共有済み",
+      "updatedAt": "2026-06-27 21:40",
+      "version": "op-ev-4"
+    },
+    {
+      "id": "EV0005",
+      "date": "2026-07-04",
+      "kind": "練習会",
+      "venue": "中央公園テニスコート",
+      "title": "",
+      "owner": "鈴木",
+      "memberCount": 8,
+      "visitorCount": 0,
+      "memberFee": 400,
+      "visitorFee": 400,
+      "otherIncome": 0,
+      "income": 3200,
+      "courtFee": 2400,
+      "supplyCost": 0,
+      "otherExpense": 0,
+      "expense": 2400,
+      "balance": 800,
+      "memo": "",
+      "participants": [
+        {
+          "key": "MB0009",
+          "name": "吉田",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0010",
+          "name": "松本",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0011",
+          "name": "井上",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0012",
+          "name": "木村",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0001",
+          "name": "鈴木",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0002",
+          "name": "高橋",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0003",
+          "name": "伊藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0004",
+          "name": "渡辺",
+          "email": "",
+          "unpaid": false
+        }
+      ],
+      "unpaid": [],
+      "unpaidCount": 0,
+      "unpaidAmount": 0,
+      "visitorNames": [],
+      "timeslot": "19:00-21:00",
+      "adjustment": 0,
+      "shared": "共有済み",
+      "updatedAt": "2026-07-04 21:40",
+      "version": "op-ev-5"
+    },
+    {
+      "id": "EV0006",
+      "date": "2026-07-11",
+      "kind": "練習会",
+      "venue": "東運動公園テニスコート",
+      "title": "",
+      "owner": "鈴木",
+      "memberCount": 10,
+      "visitorCount": 0,
+      "memberFee": 400,
+      "visitorFee": 400,
+      "otherIncome": 0,
+      "income": 4000,
+      "courtFee": 2800,
+      "supplyCost": 0,
+      "otherExpense": 0,
+      "expense": 2800,
+      "balance": 1200,
+      "memo": "",
+      "participants": [
+        {
+          "key": "MB0002",
+          "name": "高橋",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0003",
+          "name": "伊藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0004",
+          "name": "渡辺",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0005",
+          "name": "山本",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0006",
+          "name": "斎藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0007",
+          "name": "小林",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0008",
+          "name": "加藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0009",
+          "name": "吉田",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0010",
+          "name": "松本",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0011",
+          "name": "井上",
+          "email": "",
+          "unpaid": false
+        }
+      ],
+      "unpaid": [],
+      "unpaidCount": 0,
+      "unpaidAmount": 0,
+      "visitorNames": [],
+      "timeslot": "19:00-21:00",
+      "adjustment": 0,
+      "shared": "共有済み",
+      "updatedAt": "2026-07-11 21:40",
+      "version": "op-ev-6"
+    },
+    {
+      "id": "EV0007",
+      "date": "2026-07-15",
+      "kind": "練習会",
+      "venue": "市民体育館",
+      "title": "",
+      "owner": "高橋",
+      "memberCount": 6,
+      "visitorCount": 0,
+      "memberFee": 400,
+      "visitorFee": 400,
+      "otherIncome": 0,
+      "income": 2400,
+      "courtFee": 1800,
+      "supplyCost": 0,
+      "otherExpense": 0,
+      "expense": 1800,
+      "balance": 600,
+      "memo": "",
+      "participants": [
+        {
+          "key": "MB0007",
+          "name": "小林",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0008",
+          "name": "加藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0009",
+          "name": "吉田",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0010",
+          "name": "松本",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0011",
+          "name": "井上",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0012",
+          "name": "木村",
+          "email": "",
+          "unpaid": false
+        }
+      ],
+      "unpaid": [],
+      "unpaidCount": 0,
+      "unpaidAmount": 0,
+      "visitorNames": [],
+      "timeslot": "19:30-21:30",
+      "adjustment": 0,
+      "shared": "共有済み",
+      "updatedAt": "2026-07-15 21:40",
+      "version": "op-ev-7"
+    },
+    {
+      "id": "EV0008",
+      "date": "2026-07-18",
+      "kind": "練習会",
+      "venue": "中央公園テニスコート",
+      "title": "",
+      "owner": "鈴木",
+      "memberCount": 7,
+      "visitorCount": 0,
+      "memberFee": 400,
+      "visitorFee": 400,
+      "otherIncome": 0,
+      "income": 2800,
+      "courtFee": 2400,
+      "supplyCost": 1200,
+      "otherExpense": 0,
+      "expense": 3600,
+      "balance": -800,
+      "memo": "ボール1ダース補充",
+      "participants": [
+        {
+          "key": "MB0012",
+          "name": "木村",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0001",
+          "name": "鈴木",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0002",
+          "name": "高橋",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0003",
+          "name": "伊藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0004",
+          "name": "渡辺",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0005",
+          "name": "山本",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0006",
+          "name": "斎藤",
+          "email": "",
+          "unpaid": false
+        }
+      ],
+      "unpaid": [],
+      "unpaidCount": 0,
+      "unpaidAmount": 0,
+      "visitorNames": [],
+      "timeslot": "19:00-21:00",
+      "adjustment": 0,
+      "shared": "共有済み",
+      "updatedAt": "2026-07-18 21:40",
+      "version": "op-ev-8"
+    },
+    {
+      "id": "EV0009",
+      "date": "2026-07-25",
+      "kind": "練習会",
+      "venue": "東運動公園テニスコート",
+      "title": "",
+      "owner": "鈴木",
+      "memberCount": 9,
+      "visitorCount": 0,
+      "memberFee": 400,
+      "visitorFee": 400,
+      "otherIncome": 0,
+      "income": 3600,
+      "courtFee": 2800,
+      "supplyCost": 0,
+      "otherExpense": 0,
+      "expense": 2800,
+      "balance": 800,
+      "memo": "",
+      "participants": [
+        {
+          "key": "MB0005",
+          "name": "山本",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0006",
+          "name": "斎藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0007",
+          "name": "小林",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0008",
+          "name": "加藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0009",
+          "name": "吉田",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0010",
+          "name": "松本",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0011",
+          "name": "井上",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0012",
+          "name": "木村",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0001",
+          "name": "鈴木",
+          "email": "",
+          "unpaid": false
+        }
+      ],
+      "unpaid": [],
+      "unpaidCount": 0,
+      "unpaidAmount": 0,
+      "visitorNames": [],
+      "timeslot": "19:00-21:00",
+      "adjustment": 0,
+      "shared": "共有済み",
+      "updatedAt": "2026-07-25 21:40",
+      "version": "op-ev-9"
+    },
+    {
+      "id": "EV0010",
+      "date": "2026-08-01",
+      "kind": "練習会",
+      "venue": "中央公園テニスコート",
+      "title": "",
+      "owner": "高橋",
+      "memberCount": 8,
+      "visitorCount": 1,
+      "memberFee": 400,
+      "visitorFee": 400,
+      "otherIncome": 0,
+      "income": 3600,
+      "courtFee": 2400,
+      "supplyCost": 0,
+      "otherExpense": 0,
+      "expense": 2400,
+      "balance": 1200,
+      "memo": "",
+      "participants": [
+        {
+          "key": "MB0010",
+          "name": "松本",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0011",
+          "name": "井上",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0012",
+          "name": "木村",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0001",
+          "name": "鈴木",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0002",
+          "name": "高橋",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0003",
+          "name": "伊藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0004",
+          "name": "渡辺",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0005",
+          "name": "山本",
+          "email": "",
+          "unpaid": false
+        }
+      ],
+      "unpaid": [],
+      "unpaidCount": 0,
+      "unpaidAmount": 0,
+      "visitorNames": [
+        "体験参加の方"
+      ],
+      "timeslot": "19:00-21:00",
+      "adjustment": 0,
+      "shared": "共有済み",
+      "updatedAt": "2026-08-01 21:40",
+      "version": "op-ev-10"
+    },
+    {
+      "id": "EV0011",
+      "date": "2026-08-05",
+      "kind": "練習会",
+      "venue": "市民体育館",
+      "title": "",
+      "owner": "鈴木",
+      "memberCount": 5,
+      "visitorCount": 0,
+      "memberFee": 400,
+      "visitorFee": 400,
+      "otherIncome": 0,
+      "income": 2000,
+      "courtFee": 1800,
+      "supplyCost": 0,
+      "otherExpense": 0,
+      "expense": 1800,
+      "balance": 200,
+      "memo": "",
+      "participants": [
+        {
+          "key": "MB0003",
+          "name": "伊藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0004",
+          "name": "渡辺",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0005",
+          "name": "山本",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0006",
+          "name": "斎藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0007",
+          "name": "小林",
+          "email": "",
+          "unpaid": false
+        }
+      ],
+      "unpaid": [],
+      "unpaidCount": 0,
+      "unpaidAmount": 0,
+      "visitorNames": [],
+      "timeslot": "19:30-21:30",
+      "adjustment": 0,
+      "shared": "共有済み",
+      "updatedAt": "2026-08-05 21:40",
+      "version": "op-ev-11"
+    },
+    {
+      "id": "EV0012",
+      "date": "2026-08-08",
+      "kind": "練習会",
+      "venue": "東運動公園テニスコート",
+      "title": "",
+      "owner": "鈴木",
+      "memberCount": 7,
+      "visitorCount": 0,
+      "memberFee": 400,
+      "visitorFee": 400,
+      "otherIncome": 0,
+      "income": 2800,
+      "courtFee": 2800,
+      "supplyCost": 0,
+      "otherExpense": 0,
+      "expense": 2800,
+      "balance": 0,
+      "memo": "",
+      "participants": [
+        {
+          "key": "MB0008",
+          "name": "加藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0009",
+          "name": "吉田",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0010",
+          "name": "松本",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0011",
+          "name": "井上",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0012",
+          "name": "木村",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0001",
+          "name": "鈴木",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0002",
+          "name": "高橋",
+          "email": "",
+          "unpaid": false
+        }
+      ],
+      "unpaid": [],
+      "unpaidCount": 0,
+      "unpaidAmount": 0,
+      "visitorNames": [],
+      "timeslot": "19:00-21:00",
+      "adjustment": 0,
+      "shared": "共有済み",
+      "updatedAt": "2026-08-08 21:40",
+      "version": "op-ev-12"
+    },
+    {
+      "id": "EV0013",
+      "date": "2026-08-22",
+      "kind": "練習会",
+      "venue": "中央公園テニスコート",
+      "title": "",
+      "owner": "高橋",
+      "memberCount": 9,
+      "visitorCount": 0,
+      "memberFee": 400,
+      "visitorFee": 400,
+      "otherIncome": 0,
+      "income": 3600,
+      "courtFee": 2400,
+      "supplyCost": 0,
+      "otherExpense": 0,
+      "expense": 2400,
+      "balance": 1200,
+      "memo": "",
+      "participants": [
+        {
+          "key": "MB0001",
+          "name": "鈴木",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0002",
+          "name": "高橋",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0003",
+          "name": "伊藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0004",
+          "name": "渡辺",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0005",
+          "name": "山本",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0006",
+          "name": "斎藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0007",
+          "name": "小林",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0008",
+          "name": "加藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0009",
+          "name": "吉田",
+          "email": "",
+          "unpaid": false
+        }
+      ],
+      "unpaid": [],
+      "unpaidCount": 0,
+      "unpaidAmount": 0,
+      "visitorNames": [],
+      "timeslot": "19:00-21:00",
+      "adjustment": 0,
+      "shared": "共有済み",
+      "updatedAt": "2026-08-22 21:40",
+      "version": "op-ev-13"
+    },
+    {
+      "id": "EV0014",
+      "date": "2026-08-26",
+      "kind": "練習会",
+      "venue": "市民体育館",
+      "title": "",
+      "owner": "鈴木",
+      "memberCount": 6,
+      "visitorCount": 0,
+      "memberFee": 400,
+      "visitorFee": 400,
+      "otherIncome": 0,
+      "income": 2400,
+      "courtFee": 1800,
+      "supplyCost": 0,
+      "otherExpense": 0,
+      "expense": 1800,
+      "balance": 600,
+      "memo": "",
+      "participants": [
+        {
+          "key": "MB0006",
+          "name": "斎藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0007",
+          "name": "小林",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0008",
+          "name": "加藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0009",
+          "name": "吉田",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0010",
+          "name": "松本",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0011",
+          "name": "井上",
+          "email": "",
+          "unpaid": false
+        }
+      ],
+      "unpaid": [],
+      "unpaidCount": 0,
+      "unpaidAmount": 0,
+      "visitorNames": [],
+      "timeslot": "19:30-21:30",
+      "adjustment": 0,
+      "shared": "共有済み",
+      "updatedAt": "2026-08-26 21:40",
+      "version": "op-ev-14"
+    },
+    {
+      "id": "EV0015",
+      "date": "2026-08-29",
+      "kind": "練習会",
+      "venue": "東運動公園テニスコート",
+      "title": "",
+      "owner": "鈴木",
+      "memberCount": 8,
+      "visitorCount": 0,
+      "memberFee": 400,
+      "visitorFee": 400,
+      "otherIncome": 0,
+      "income": 3200,
+      "courtFee": 2800,
+      "supplyCost": 0,
+      "otherExpense": 0,
+      "expense": 2800,
+      "balance": 400,
+      "memo": "",
+      "participants": [
+        {
+          "key": "MB0011",
+          "name": "井上",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0012",
+          "name": "木村",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0001",
+          "name": "鈴木",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0002",
+          "name": "高橋",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0003",
+          "name": "伊藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0004",
+          "name": "渡辺",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0005",
+          "name": "山本",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0006",
+          "name": "斎藤",
+          "email": "",
+          "unpaid": false
+        }
+      ],
+      "unpaid": [],
+      "unpaidCount": 0,
+      "unpaidAmount": 0,
+      "visitorNames": [],
+      "timeslot": "19:00-21:00",
+      "adjustment": 0,
+      "shared": "共有済み",
+      "updatedAt": "2026-08-29 21:40",
+      "version": "op-ev-15"
+    },
+    {
+      "id": "EV0016",
+      "date": "2026-09-05",
+      "kind": "練習会",
+      "venue": "中央公園テニスコート",
+      "title": "",
+      "owner": "高橋",
+      "memberCount": 10,
+      "visitorCount": 0,
+      "memberFee": 400,
+      "visitorFee": 400,
+      "otherIncome": 0,
+      "income": 4000,
+      "courtFee": 2400,
+      "supplyCost": 0,
+      "otherExpense": 0,
+      "expense": 2400,
+      "balance": 1600,
+      "memo": "",
+      "participants": [
+        {
+          "key": "MB0004",
+          "name": "渡辺",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0005",
+          "name": "山本",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0006",
+          "name": "斎藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0007",
+          "name": "小林",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0008",
+          "name": "加藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0009",
+          "name": "吉田",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0010",
+          "name": "松本",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0011",
+          "name": "井上",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0012",
+          "name": "木村",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0001",
+          "name": "鈴木",
+          "email": "",
+          "unpaid": true
+        }
+      ],
+      "unpaid": [
+        "MB0001"
+      ],
+      "unpaidCount": 1,
+      "unpaidAmount": 400,
+      "visitorNames": [],
+      "timeslot": "19:00-21:00",
+      "adjustment": 0,
+      "shared": "共有済み",
+      "updatedAt": "2026-09-05 21:40",
+      "version": "op-ev-16"
+    },
+    {
+      "id": "EV0017",
+      "date": "2026-09-09",
+      "kind": "練習会",
+      "venue": "市民体育館",
+      "title": "",
+      "owner": "鈴木",
+      "memberCount": 7,
+      "visitorCount": 0,
+      "memberFee": 400,
+      "visitorFee": 400,
+      "otherIncome": 0,
+      "income": 2800,
+      "courtFee": 1800,
+      "supplyCost": 0,
+      "otherExpense": 0,
+      "expense": 1800,
+      "balance": 1000,
+      "memo": "",
+      "participants": [
+        {
+          "key": "MB0009",
+          "name": "吉田",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0010",
+          "name": "松本",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0011",
+          "name": "井上",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0012",
+          "name": "木村",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0001",
+          "name": "鈴木",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0002",
+          "name": "高橋",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0003",
+          "name": "伊藤",
+          "email": "",
+          "unpaid": false
+        }
+      ],
+      "unpaid": [],
+      "unpaidCount": 0,
+      "unpaidAmount": 0,
+      "visitorNames": [],
+      "timeslot": "19:30-21:30",
+      "adjustment": 0,
+      "shared": "共有済み",
+      "updatedAt": "2026-09-09 21:40",
+      "version": "op-ev-17"
+    },
+    {
+      "id": "EV0018",
+      "date": "2026-09-12",
+      "kind": "練習会",
+      "venue": "東運動公園テニスコート",
+      "title": "",
+      "owner": "鈴木",
+      "memberCount": 9,
+      "visitorCount": 0,
+      "memberFee": 400,
+      "visitorFee": 400,
+      "otherIncome": 0,
+      "income": 3600,
+      "courtFee": 2800,
+      "supplyCost": 0,
+      "otherExpense": 0,
+      "expense": 2800,
+      "balance": 800,
+      "memo": "",
+      "participants": [
+        {
+          "key": "MB0002",
+          "name": "高橋",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0003",
+          "name": "伊藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0004",
+          "name": "渡辺",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0005",
+          "name": "山本",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0006",
+          "name": "斎藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0007",
+          "name": "小林",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0008",
+          "name": "加藤",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0009",
+          "name": "吉田",
+          "email": "",
+          "unpaid": false
+        },
+        {
+          "key": "MB0010",
+          "name": "松本",
+          "email": "",
+          "unpaid": false
+        }
+      ],
+      "unpaid": [],
+      "unpaidCount": 0,
+      "unpaidAmount": 0,
+      "visitorNames": [],
+      "timeslot": "19:00-21:00",
+      "adjustment": 0,
+      "shared": "未共有",
+      "updatedAt": "2026-09-12 21:40",
+      "version": "op-ev-18"
+    }
+  ],
+  "misc": [
+    {
+      "id": "MS0001",
+      "date": "2026-04-12",
+      "direction": "収入",
+      "category": "年会費",
+      "title": "2026年度 年会費（8人分）",
+      "amount": 24000,
+      "memo": "4月の練習会で集金",
+      "updatedAt": "2026-04-12 21:00",
+      "version": "op-ms-1"
+    },
+    {
+      "id": "MS0002",
+      "date": "2026-05-10",
+      "direction": "支出",
+      "category": "ボール",
+      "title": "ボール 2ダース",
+      "amount": 5400,
+      "memo": "",
+      "updatedAt": "2026-05-10 12:00",
+      "version": "op-ms-2"
+    },
+    {
+      "id": "MS0003",
+      "date": "2026-06-14",
+      "direction": "支出",
+      "category": "備品",
+      "title": "ネット補修テープ",
+      "amount": 980,
+      "memo": "",
+      "updatedAt": "2026-06-14 18:00",
+      "version": "op-ms-3"
+    },
+    {
+      "id": "MS0004",
+      "date": "2026-06-21",
+      "direction": "収入",
+      "category": "年会費",
+      "title": "年会費 一部入金（2人）",
+      "amount": 2000,
+      "memo": "",
+      "updatedAt": "2026-06-21 21:00",
+      "version": "op-ms-4"
+    },
+    {
+      "id": "MS0005",
+      "date": "2026-07-19",
+      "direction": "支出",
+      "category": "その他支出",
+      "title": "市民大会 エントリー費",
+      "amount": 6000,
+      "memo": "3ペア",
+      "updatedAt": "2026-07-19 20:00",
+      "version": "op-ms-5"
+    },
+    {
+      "id": "MS0006",
+      "date": "2026-08-02",
+      "direction": "支出",
+      "category": "ボール",
+      "title": "ボール 1ダース",
+      "amount": 2700,
+      "memo": "",
+      "updatedAt": "2026-08-02 12:00",
+      "version": "op-ms-6"
+    }
+  ],
+  "plans": [
+    {
+      "id": "PL0001",
+      "date": "2026-09-19",
+      "startTime": "19:00",
+      "endTime": "21:00",
+      "kind": "練習会",
+      "venue": "中央公園テニスコート",
+      "title": "",
+      "memo": "",
+      "updatedAt": "2026-09-01 20:00",
+      "courtCount": 2,
+      "courtFee": 2400
+    },
+    {
+      "id": "PL0002",
+      "date": "2026-09-26",
+      "startTime": "19:00",
+      "endTime": "21:00",
+      "kind": "練習会",
+      "venue": "東運動公園テニスコート",
+      "title": "",
+      "memo": "",
+      "updatedAt": "2026-09-01 20:00",
+      "courtCount": 2,
+      "courtFee": 2800
+    },
+    {
+      "id": "PL0003",
+      "date": "2026-10-03",
+      "startTime": "19:00",
+      "endTime": "21:00",
+      "kind": "練習会",
+      "venue": "中央公園テニスコート",
+      "title": "",
+      "memo": "",
+      "updatedAt": "2026-09-01 20:00",
+      "courtCount": 2,
+      "courtFee": 2400
+    },
+    {
+      "id": "PL0004",
+      "date": "2026-10-10",
+      "startTime": "19:00",
+      "endTime": "21:00",
+      "kind": "練習会",
+      "venue": "東運動公園テニスコート",
+      "title": "",
+      "memo": "",
+      "updatedAt": "2026-09-01 20:00",
+      "courtCount": 2,
+      "courtFee": 2800
+    },
+    {
+      "id": "PL0005",
+      "date": "2026-10-17",
+      "startTime": "19:30",
+      "endTime": "21:30",
+      "kind": "練習会",
+      "venue": "市民体育館",
+      "title": "",
+      "memo": "雨天時の代替",
+      "updatedAt": "2026-09-01 20:00",
+      "courtCount": 1,
+      "courtFee": 1800
+    },
+    {
+      "id": "PL0006",
+      "date": "2026-10-24",
+      "startTime": "19:00",
+      "endTime": "21:00",
+      "kind": "練習会",
+      "venue": "中央公園テニスコート",
+      "title": "",
+      "memo": "",
+      "updatedAt": "2026-09-01 20:00",
+      "courtCount": 2,
+      "courtFee": 2400
+    },
+    {
+      "id": "PL0007",
+      "date": "2026-10-04",
+      "startTime": "",
+      "endTime": "",
+      "kind": "大会",
+      "venue": "中央公園テニスコート",
+      "title": "秋季クラブ対抗",
+      "memo": "",
+      "updatedAt": "2026-09-01 20:00",
+      "courtCount": "",
+      "courtFee": ""
+    },
+    {
+      "id": "PL0008",
+      "date": "2026-10-18",
+      "startTime": "",
+      "endTime": "",
+      "kind": "大会",
+      "venue": "東運動公園テニスコート",
+      "title": "市民ミックスダブルス",
+      "memo": "",
+      "updatedAt": "2026-09-01 20:00",
+      "courtCount": "",
+      "courtFee": ""
+    }
+  ],
+  "loans": [
+    {
+      "id": "LN0001",
+      "date": "2026-08-29",
+      "direction": "借入",
+      "counterparty": "高橋",
+      "amount": 8000,
+      "settled": 0,
+      "status": "未精算",
+      "outstanding": 8000,
+      "settledDate": "",
+      "originFlowId": "",
+      "settleFlowId": "",
+      "memo": "コート代の立て替え（9月分）",
+      "updatedAt": "2026-08-29 22:00",
+      "version": "op-ln-1"
+    }
+  ],
+  "dues": [
+    {
+      "id": "DU0001",
+      "fiscalYear": 2026,
+      "email": "",
+      "memberId": "MB0001",
+      "key": "MB0001",
+      "name": "鈴木",
+      "billed": 3000,
+      "paid": 3000,
+      "paidDate": "2026-04-12",
+      "status": "完納",
+      "flowId": "",
+      "memo": "",
+      "updatedAt": "2026-06-21 21:00",
+      "version": "op-du-1"
+    },
+    {
+      "id": "DU0002",
+      "fiscalYear": 2026,
+      "email": "",
+      "memberId": "MB0002",
+      "key": "MB0002",
+      "name": "高橋",
+      "billed": 3000,
+      "paid": 3000,
+      "paidDate": "2026-04-12",
+      "status": "完納",
+      "flowId": "",
+      "memo": "",
+      "updatedAt": "2026-06-21 21:00",
+      "version": "op-du-2"
+    },
+    {
+      "id": "DU0003",
+      "fiscalYear": 2026,
+      "email": "",
+      "memberId": "MB0003",
+      "key": "MB0003",
+      "name": "伊藤",
+      "billed": 3000,
+      "paid": 3000,
+      "paidDate": "2026-04-12",
+      "status": "完納",
+      "flowId": "",
+      "memo": "",
+      "updatedAt": "2026-06-21 21:00",
+      "version": "op-du-3"
+    },
+    {
+      "id": "DU0004",
+      "fiscalYear": 2026,
+      "email": "",
+      "memberId": "MB0004",
+      "key": "MB0004",
+      "name": "渡辺",
+      "billed": 3000,
+      "paid": 3000,
+      "paidDate": "2026-04-12",
+      "status": "完納",
+      "flowId": "",
+      "memo": "",
+      "updatedAt": "2026-06-21 21:00",
+      "version": "op-du-4"
+    },
+    {
+      "id": "DU0005",
+      "fiscalYear": 2026,
+      "email": "",
+      "memberId": "MB0005",
+      "key": "MB0005",
+      "name": "山本",
+      "billed": 3000,
+      "paid": 3000,
+      "paidDate": "2026-04-12",
+      "status": "完納",
+      "flowId": "",
+      "memo": "",
+      "updatedAt": "2026-06-21 21:00",
+      "version": "op-du-5"
+    },
+    {
+      "id": "DU0006",
+      "fiscalYear": 2026,
+      "email": "",
+      "memberId": "MB0006",
+      "key": "MB0006",
+      "name": "斎藤",
+      "billed": 3000,
+      "paid": 3000,
+      "paidDate": "2026-04-12",
+      "status": "完納",
+      "flowId": "",
+      "memo": "",
+      "updatedAt": "2026-06-21 21:00",
+      "version": "op-du-6"
+    },
+    {
+      "id": "DU0007",
+      "fiscalYear": 2026,
+      "email": "",
+      "memberId": "MB0007",
+      "key": "MB0007",
+      "name": "小林",
+      "billed": 3000,
+      "paid": 3000,
+      "paidDate": "2026-04-12",
+      "status": "完納",
+      "flowId": "",
+      "memo": "",
+      "updatedAt": "2026-06-21 21:00",
+      "version": "op-du-7"
+    },
+    {
+      "id": "DU0008",
+      "fiscalYear": 2026,
+      "email": "",
+      "memberId": "MB0008",
+      "key": "MB0008",
+      "name": "加藤",
+      "billed": 3000,
+      "paid": 3000,
+      "paidDate": "2026-04-12",
+      "status": "完納",
+      "flowId": "",
+      "memo": "",
+      "updatedAt": "2026-06-21 21:00",
+      "version": "op-du-8"
+    },
+    {
+      "id": "DU0009",
+      "fiscalYear": 2026,
+      "email": "",
+      "memberId": "MB0009",
+      "key": "MB0009",
+      "name": "吉田",
+      "billed": 3000,
+      "paid": 1000,
+      "paidDate": "2026-06-21",
+      "status": "一部入金",
+      "flowId": "",
+      "memo": "",
+      "updatedAt": "2026-06-21 21:00",
+      "version": "op-du-9"
+    },
+    {
+      "id": "DU0010",
+      "fiscalYear": 2026,
+      "email": "",
+      "memberId": "MB0010",
+      "key": "MB0010",
+      "name": "松本",
+      "billed": 3000,
+      "paid": 1000,
+      "paidDate": "2026-06-21",
+      "status": "一部入金",
+      "flowId": "",
+      "memo": "",
+      "updatedAt": "2026-06-21 21:00",
+      "version": "op-du-10"
+    },
+    {
+      "id": "DU0011",
+      "fiscalYear": 2026,
+      "email": "",
+      "memberId": "MB0011",
+      "key": "MB0011",
+      "name": "井上",
+      "billed": 3000,
+      "paid": 0,
+      "paidDate": "",
+      "status": "未納",
+      "flowId": "",
+      "memo": "",
+      "updatedAt": "",
+      "version": "op-du-11"
+    },
+    {
+      "id": "DU0012",
+      "fiscalYear": 2026,
+      "email": "",
+      "memberId": "MB0012",
+      "key": "MB0012",
+      "name": "木村",
+      "billed": 3000,
+      "paid": 0,
+      "paidDate": "",
+      "status": "未納",
+      "flowId": "",
+      "memo": "",
+      "updatedAt": "",
+      "version": "op-du-12"
+    }
+  ],
+  "members": [
+    {
+      "id": "MB0001",
+      "email": "",
+      "name": "鈴木",
+      "role": "管理者",
+      "status": "有効",
+      "joinedAt": "2024-04-01",
+      "key": "MB0001"
+    },
+    {
+      "id": "MB0002",
+      "email": "",
+      "name": "高橋",
+      "role": "管理者",
+      "status": "有効",
+      "joinedAt": "2024-04-01",
+      "key": "MB0002"
+    },
+    {
+      "id": "MB0003",
+      "email": "",
+      "name": "伊藤",
+      "role": "メンバー",
+      "status": "有効",
+      "joinedAt": "2024-04-01",
+      "key": "MB0003"
+    },
+    {
+      "id": "MB0004",
+      "email": "",
+      "name": "渡辺",
+      "role": "メンバー",
+      "status": "有効",
+      "joinedAt": "2024-04-01",
+      "key": "MB0004"
+    },
+    {
+      "id": "MB0005",
+      "email": "",
+      "name": "山本",
+      "role": "メンバー",
+      "status": "有効",
+      "joinedAt": "2024-04-01",
+      "key": "MB0005"
+    },
+    {
+      "id": "MB0006",
+      "email": "",
+      "name": "斎藤",
+      "role": "メンバー",
+      "status": "有効",
+      "joinedAt": "2024-04-01",
+      "key": "MB0006"
+    },
+    {
+      "id": "MB0007",
+      "email": "",
+      "name": "小林",
+      "role": "メンバー",
+      "status": "有効",
+      "joinedAt": "2024-04-01",
+      "key": "MB0007"
+    },
+    {
+      "id": "MB0008",
+      "email": "",
+      "name": "加藤",
+      "role": "メンバー",
+      "status": "有効",
+      "joinedAt": "2024-04-01",
+      "key": "MB0008"
+    },
+    {
+      "id": "MB0009",
+      "email": "",
+      "name": "吉田",
+      "role": "メンバー",
+      "status": "有効",
+      "joinedAt": "2025-04-01",
+      "key": "MB0009"
+    },
+    {
+      "id": "MB0010",
+      "email": "",
+      "name": "松本",
+      "role": "メンバー",
+      "status": "有効",
+      "joinedAt": "2025-04-01",
+      "key": "MB0010"
+    },
+    {
+      "id": "MB0011",
+      "email": "",
+      "name": "井上",
+      "role": "メンバー",
+      "status": "有効",
+      "joinedAt": "2025-04-01",
+      "key": "MB0011"
+    },
+    {
+      "id": "MB0012",
+      "email": "",
+      "name": "木村",
+      "role": "メンバー",
+      "status": "有効",
+      "joinedAt": "2025-04-01",
+      "key": "MB0012"
+    }
+  ],
+  "directory": [
+    {
+      "key": "MB0001",
+      "memberId": "MB0001",
+      "email": "",
+      "nickname": "鈴木",
+      "realName": "鈴木 一郎",
+      "furigana": "スズキ イチロウ",
+      "gender": "男",
+      "birthday": "1988-04-12",
+      "address": "〇〇市",
+      "refereeNo": "",
+      "jstaNo": "",
+      "memo": ""
+    },
+    {
+      "key": "MB0002",
+      "memberId": "MB0002",
+      "email": "",
+      "nickname": "高橋",
+      "realName": "高橋 美咲",
+      "furigana": "タカハシ ミサキ",
+      "gender": "女",
+      "birthday": "1991-07-03",
+      "address": "〇〇市",
+      "refereeNo": "",
+      "jstaNo": "",
+      "memo": ""
+    },
+    {
+      "key": "MB0003",
+      "memberId": "MB0003",
+      "email": "",
+      "nickname": "伊藤",
+      "realName": "伊藤 健太",
+      "furigana": "イトウ ケンタ",
+      "gender": "男",
+      "birthday": "1985-11-21",
+      "address": "〇〇市",
+      "refereeNo": "",
+      "jstaNo": "",
+      "memo": ""
+    },
+    {
+      "key": "MB0004",
+      "memberId": "MB0004",
+      "email": "",
+      "nickname": "渡辺",
+      "realName": "渡辺 直子",
+      "furigana": "ワタナベ ナオコ",
+      "gender": "女",
+      "birthday": "1993-02-14",
+      "address": "〇〇市",
+      "refereeNo": "",
+      "jstaNo": "",
+      "memo": ""
+    },
+    {
+      "key": "MB0005",
+      "memberId": "MB0005",
+      "email": "",
+      "nickname": "山本",
+      "realName": "山本 翔",
+      "furigana": "ヤマモト ショウ",
+      "gender": "男",
+      "birthday": "1996-09-30",
+      "address": "〇〇市",
+      "refereeNo": "",
+      "jstaNo": "",
+      "memo": ""
+    },
+    {
+      "key": "MB0006",
+      "memberId": "MB0006",
+      "email": "",
+      "nickname": "斎藤",
+      "realName": "斎藤 彩",
+      "furigana": "サイトウ アヤ",
+      "gender": "女",
+      "birthday": "1990-05-08",
+      "address": "〇〇市",
+      "refereeNo": "",
+      "jstaNo": "",
+      "memo": ""
+    },
+    {
+      "key": "MB0007",
+      "memberId": "MB0007",
+      "email": "",
+      "nickname": "小林",
+      "realName": "小林 大輔",
+      "furigana": "コバヤシ ダイスケ",
+      "gender": "男",
+      "birthday": "1987-12-01",
+      "address": "〇〇市",
+      "refereeNo": "",
+      "jstaNo": "",
+      "memo": ""
+    },
+    {
+      "key": "MB0008",
+      "memberId": "MB0008",
+      "email": "",
+      "nickname": "加藤",
+      "realName": "加藤 結衣",
+      "furigana": "カトウ ユイ",
+      "gender": "女",
+      "birthday": "1998-03-19",
+      "address": "〇〇市",
+      "refereeNo": "",
+      "jstaNo": "",
+      "memo": ""
+    },
+    {
+      "key": "MB0009",
+      "memberId": "MB0009",
+      "email": "",
+      "nickname": "吉田",
+      "realName": "吉田 亮",
+      "furigana": "ヨシダ リョウ",
+      "gender": "男",
+      "birthday": "1992-08-27",
+      "address": "〇〇市",
+      "refereeNo": "",
+      "jstaNo": "",
+      "memo": ""
+    },
+    {
+      "key": "MB0010",
+      "memberId": "MB0010",
+      "email": "",
+      "nickname": "松本",
+      "realName": "松本 千尋",
+      "furigana": "マツモト チヒロ",
+      "gender": "女",
+      "birthday": "1989-10-10",
+      "address": "〇〇市",
+      "refereeNo": "",
+      "jstaNo": "",
+      "memo": ""
+    },
+    {
+      "key": "MB0011",
+      "memberId": "MB0011",
+      "email": "",
+      "nickname": "井上",
+      "realName": "井上 拓也",
+      "furigana": "イノウエ タクヤ",
+      "gender": "男",
+      "birthday": "1994-06-06",
+      "address": "〇〇市",
+      "refereeNo": "",
+      "jstaNo": "",
+      "memo": ""
+    },
+    {
+      "key": "MB0012",
+      "memberId": "MB0012",
+      "email": "",
+      "nickname": "木村",
+      "realName": "木村 さくら",
+      "furigana": "キムラ サクラ",
+      "gender": "女",
+      "birthday": "1997-01-25",
+      "address": "〇〇市",
+      "refereeNo": "",
+      "jstaNo": "",
+      "memo": ""
+    }
+  ],
+  "tournaments": [
+    {
+      "id": "TN0001",
+      "name": "秋季クラブ対抗ソフトテニス大会",
+      "host": "市ソフトテニス協会",
+      "date": "2026-10-04",
+      "deadline": "2026-09-17",
+      "venue": "中央公園テニスコート",
+      "timeNote": "8:30受付　9:00開始",
+      "events": [
+        "A級",
+        "B級",
+        "C級"
+      ],
+      "entryEvent": "B級",
+      "fee": 8000,
+      "feeUnit": "チーム",
+      "applyMethod": [
+        "郵送",
+        "FAX"
+      ],
+      "applyTo": "大会事務局（要項に記載）",
+      "ageBaseDate": "",
+      "guideUrl": "",
+      "status": "予定",
+      "progress": [
+        "様式入手",
+        "出場者確定"
+      ],
+      "memo": "8名まで登録可",
+      "planId": "PL0007",
+      "calendarEventId": "",
+      "players": [
+        "MB0001",
+        "MB0003",
+        "MB0005",
+        "MB0007",
+        "MB0009",
+        "MB0011"
+      ],
+      "updatedAt": "2026-09-10 20:00",
+      "deleted": false,
+      "version": "op-tn-1"
+    },
+    {
+      "id": "TN0002",
+      "name": "市民ミックスダブルス交流大会",
+      "host": "市ソフトテニス協会",
+      "date": "2026-10-18",
+      "deadline": "2026-09-20",
+      "venue": "東運動公園テニスコート",
+      "timeNote": "開会式 9:00",
+      "events": [
+        "Age90級",
+        "Age110級",
+        "Age130級"
+      ],
+      "entryEvent": "Age90級",
+      "fee": 2000,
+      "feeUnit": "ペア",
+      "applyMethod": [
+        "メール"
+      ],
+      "applyTo": "大会運営担当（メール）",
+      "ageBaseDate": "2026-10-18",
+      "guideUrl": "",
+      "status": "予定",
+      "progress": [
+        "様式入手"
+      ],
+      "memo": "参加料は受付時に納入",
+      "planId": "PL0008",
+      "calendarEventId": "",
+      "players": [],
+      "updatedAt": "2026-09-10 20:00",
+      "deleted": false,
+      "version": "op-tn-2"
+    }
+  ],
+  "attendance": [
+    {
+      "id": "AT0001",
+      "planId": "PL0001",
+      "present": [
+        "MB0001",
+        "MB0002",
+        "MB0003",
+        "MB0005",
+        "MB0006",
+        "MB0008",
+        "MB0010"
+      ],
+      "absent": [
+        "MB0004",
+        "MB0011"
+      ],
+      "undecided": [
+        "MB0007"
+      ],
+      "confirmedAt": "",
+      "confirmedMembers": "",
+      "confirmedVisitors": "",
+      "confirmedVisitorFee": "",
+      "confirmedCourtFee": "",
+      "announcedFee": "",
+      "updatedAt": "2026-09-13 21:00",
+      "deleted": false,
+      "version": "op-att-1"
+    }
+  ],
+  "spreadsheetUrl": "https://docs.google.com/spreadsheets/d/DEMO/edit",
+  "generatedAt": "2026-09-14 09:00",
+  "demoDeleted": [
+    {
+      "sheet": "イベント",
+      "id": "EV0090",
+      "label": "2026-08-15 練習会 中央公園テニスコート（誤登録）",
+      "deletedAt": "2026-08-16 09:12",
+      "deletedBy": "鈴木",
+      "version": "op-ev-90",
+      "row": {
+        "id": "EV0090",
+        "date": "2026-08-15",
+        "kind": "練習会",
+        "venue": "中央公園テニスコート",
+        "title": "",
+        "owner": "鈴木",
+        "memberCount": 0,
+        "visitorCount": 0,
+        "memberFee": 400,
+        "visitorFee": 400,
+        "otherIncome": 0,
+        "income": 0,
+        "courtFee": 0,
+        "supplyCost": 0,
+        "otherExpense": 0,
+        "expense": 0,
+        "balance": 0,
+        "memo": "誤登録",
+        "participants": [],
+        "unpaid": [],
+        "unpaidCount": 0,
+        "unpaidAmount": 0,
+        "visitorNames": [],
+        "timeslot": "",
+        "adjustment": 0,
+        "shared": "未共有",
+        "updatedAt": "2026-08-15 21:00",
+        "version": "op-ev-90"
+      }
+    }
+  ]
+}

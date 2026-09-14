@@ -1,0 +1,15 @@
+{
+  "_comment": "数字の正本。テスト数は本体で ./check.sh を実行した結果を写す。本番の版は反映のたびに更新する。",
+  "project": "OneStep",
+  "author": "Ryuma",
+  "region": "青森県八戸市",
+  "club": "社会人ソフトテニスクラブ「OneStep」",
+  "tests": 496,
+  "latestRelease": "R18",
+  "adminVersion": 38,
+  "viewerVersion": 15,
+  "baseCommit": "88e191b",
+  "updated": "2026-09-14",
+  "demoMembers": 12,
+  "demoNote": "公開デモのデータは完全に架空です（メンバー名・会場・金額）。本番のデータは含みません。"
+}

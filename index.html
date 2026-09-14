@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OneStep｜GAS × Googleスプレッドシートでスポーツクラブ運営を一元化・効率化</title>
+<meta name="description" content="青森県八戸市の社会人ソフトテニスクラブ「OneStep」で実運用中の運営ツール。Google Apps Script と Google スプレッドシートで、予定・出欠・記録・収支・会費・大会申込・会員名簿を一元化した事例紹介。">
+<link rel="icon" href="assets/logo/logo.png">
+<style>
+  :root {
+    --navy: #0f2a4a; --blue: #1f5fbf; --blue-light: #e8f0fb; --ink: #1c2530; --sub: #5b6b82;
+    --line: #dde4ee; --bg: #ffffff; --bg-soft: #f6f8fb; --ok: #1d8a5f; --warn: #b7791f; --max: 1040px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", sans-serif; line-height: 1.75; font-size: 16px; -webkit-font-smoothing: antialiased; }
+  a { color: var(--blue); }
+  img { max-width: 100%; height: auto; display: block; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+  header.top { border-bottom: 1px solid var(--line); background: #fff; position: sticky; top: 0; z-index: 10; }
+  header.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; gap: 12px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; color: var(--navy); text-decoration: none; }
+  .brand img { height: 28px; width: auto; }
+  nav.jump { display: flex; gap: 14px; font-size: 13px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+  nav.jump::-webkit-scrollbar { display: none; }
+  nav.jump a { color: var(--sub); text-decoration: none; }
+  nav.jump a:hover { color: var(--blue); }
+  section { padding: 56px 0; }
+  section + section { border-top: 1px solid var(--line); }
+  section.soft { background: var(--bg-soft); }
+  h1 { font-size: clamp(26px, 4.6vw, 40px); line-height: 1.35; color: var(--navy); margin: 0 0 14px; letter-spacing: .01em; }
+  h2 { font-size: clamp(21px, 3vw, 27px); color: var(--navy); margin: 0 0 8px; line-height: 1.4; }
+  h3 { font-size: 17px; color: var(--navy); margin: 22px 0 6px; }
+  .eyebrow { color: var(--blue); font-weight: 700; font-size: 13px; letter-spacing: .08em; margin-bottom: 8px; }
+  .lead { color: var(--sub); font-size: 17px; margin: 0 0 24px; max-width: 700px; }
+  p { margin: 0 0 12px; }
+  .badges { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 22px; }
+  .badge { display: inline-block; border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; font-size: 13px; color: var(--navy); background: #fff; }
+  .badge.live { background: var(--ok); border-color: var(--ok); color: #fff; font-weight: 700; }
+  .badge.muted { background: var(--bg-soft); color: var(--sub); font-size: 12px; padding: 1px 8px; margin-left: 6px; }
+  .hero { padding: 44px 0 56px; background: linear-gradient(180deg, #f3f7fd 0%, #fff 100%); }
+  .hero .wrap { display: grid; grid-template-columns: 1.25fr .9fr; gap: 40px; align-items: center; }
+  .phone { border: 10px solid #1a2330; border-radius: 34px; overflow: hidden; background: #1a2330; box-shadow: 0 18px 40px rgba(15,42,74,.18); max-width: 300px; margin: 0 auto; }
+  .phone img { display: block; }
+  .btn { display: inline-block; background: var(--blue); color: #fff; text-decoration: none; padding: 12px 22px; border-radius: 8px; font-weight: 700; }
+  .btn.ghost { background: #fff; color: var(--blue); border: 1px solid var(--blue); }
+  .btns { display: flex; flex-wrap: wrap; gap: 10px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 18px 18px 14px; }
+  .card h3 { margin: 0 0 6px; font-size: 16px; }
+  .card p { color: var(--sub); font-size: 14px; margin: 0; }
+  .list { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; padding: 0; list-style: none; }
+  .list li { background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; font-size: 14px; }
+  /* Before / After のフロー */
+  .flows { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .flow { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 22px 20px; }
+  .flow h3 { margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  .flow.before h3 { color: var(--warn); } .flow.after h3 { color: var(--ok); }
+  .chain { list-style: none; margin: 0; padding: 0; }
+  .chain li { position: relative; padding: 9px 12px; border-radius: 8px; background: var(--bg-soft); border: 1px solid var(--line); font-size: 15px; }
+  .chain li + li { margin-top: 18px; }
+  .chain li + li::before { content: ""; position: absolute; left: 50%; top: -15px; width: 0; height: 0; border: 6px solid transparent; border-top: 8px solid #b6c3d6; transform: translateX(-50%); }
+  .chain li.hand { border-left: 4px solid var(--warn); }
+  .chain li.auto { border-left: 4px solid var(--ok); }
+  .chain li.keep { border-left: 4px solid var(--blue); }
+  .chain small { display: block; color: var(--sub); font-size: 12px; line-height: 1.5; }
+  .flow .also { margin-top: 16px; color: var(--sub); font-size: 14px; }
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; color: var(--sub); font-size: 13px; margin-top: 14px; }
+  .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; vertical-align: -1px; margin-right: 4px; }
+  /* 設計思想 */
+  .principle { display: grid; grid-template-columns: 1.1fr .9fr; gap: 32px; align-items: start; }
+  .principle .key { background: var(--navy); color: #fff; border-radius: 12px; padding: 22px 24px; margin-bottom: 18px; }
+  .principle .key b { display: block; font-size: 20px; margin-bottom: 6px; }
+  .principle .key p { margin: 0; color: #d6e2f3; font-size: 15px; }
+  .principle ol { padding-left: 20px; margin: 0; } .principle ol li { margin-bottom: 8px; }
+  .shot-note { text-align: center; color: var(--sub); font-size: 13px; margin-top: 10px; }
+  /* 機能 */
+  .feats { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+  .feat { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+  .feat-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .feat-name { font-weight: 700; color: var(--navy); font-size: 16px; }
+  .feat-since { font-size: 11px; color: var(--sub); border: 1px solid var(--line); border-radius: 999px; padding: 0 7px; }
+  .feat-biz { font-size: 12px; color: var(--blue); margin: 2px 0 6px; }
+  .feat p { font-size: 14px; color: var(--sub); margin: 0; }
+  /* Before/After 表 */
+  .table-wrap { overflow-x: auto; }
+  table.ba { border-collapse: collapse; width: 100%; min-width: 640px; font-size: 14px; background: #fff; }
+  table.ba th, table.ba td { border: 1px solid var(--line); padding: 10px 12px; text-align: left; vertical-align: top; }
+  table.ba thead th { background: var(--navy); color: #fff; font-weight: 700; }
+  table.ba tbody th { background: var(--bg-soft); width: 110px; color: var(--navy); }
+  table.ba td:nth-child(2) { color: var(--sub); }
+  table.ba td:nth-child(3) { background: #f4faf7; }
+  .metric { font-size: 12px; color: var(--ok); margin-top: 4px; }
+  .note { color: var(--sub); font-size: 13px; }
+  /* 構成図 */
+  .arch { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 12px; overflow-x: auto; }
+  .arch svg { width: 100%; height: auto; min-width: 640px; display: block; }
+  /* 安全性 */
+  .safety { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+  .safety .card b { color: var(--navy); }
+  /* タイムライン */
+  .tl { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--line); }
+  .tl li { position: relative; padding: 0 0 14px 20px; font-size: 14px; }
+  .tl li::before { content: ""; position: absolute; left: -7px; top: 8px; width: 12px; height: 12px; border-radius: 50%; background: var(--blue); border: 2px solid #fff; }
+  .tl-date { color: var(--sub); font-size: 12px; margin-right: 8px; }
+  .tl-rel { font-weight: 700; color: var(--navy); margin-right: 8px; }
+  .tl-sum { display: block; color: var(--ink); }
+  .up { list-style: none; padding: 0; margin: 0; }
+  .up li { padding: 8px 0; border-bottom: 1px dashed var(--line); font-size: 14px; }
+  /* ギャラリー */
+  .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+  .gallery figure { margin: 0; }
+  .gallery .phone { max-width: 220px; border-width: 7px; border-radius: 26px; }
+  .gallery figcaption { font-size: 13px; color: var(--sub); text-align: center; margin-top: 8px; }
+  .gallery figure.wide { grid-column: 1 / -1; }
+  .gallery figure.wide img { border: 1px solid var(--line); border-radius: 10px; }
+  .process { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .steps { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .steps li { background: var(--blue-light); color: var(--navy); border-radius: 8px; padding: 6px 10px; font-size: 13px; font-weight: 700; }
+  .steps li::after { content: "→"; color: #9db3d0; margin-left: 8px; }
+  .steps li:last-child::after { content: ""; }
+  .callout { background: var(--blue-light); border-left: 4px solid var(--blue); padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 14px; }
+  .cta { background: var(--navy); color: #fff; text-align: center; padding: 64px 0; }
+  .cta h2 { color: #fff; }
+  .cta p { color: #d6e2f3; max-width: 640px; margin: 0 auto 20px; }
+  .cta .btn { background: #fff; color: var(--navy); }
+  footer { padding: 24px 0 40px; color: var(--sub); font-size: 13px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 20px; justify-content: space-between; }
+  @media (max-width: 760px) {
+    section { padding: 40px 0; }
+    .hero { padding: 28px 0 40px; }
+    .hero .wrap, .flows, .principle, .process { grid-template-columns: 1fr; }
+    .phone { max-width: 250px; }
+    nav.jump { display: none; }
+    .gallery { grid-template-columns: repeat(2, 1fr); }
+    .gallery .phone { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><img src="assets/logo/logo.png" alt="OneStep ロゴ"><span>OneStep 事例紹介</span></a>
+    <nav class="jump">
+      <a href="#problem">課題</a><a href="#design">設計思想</a><a href="#features">機能</a><a href="#before-after">Before / After</a><a href="#arch">構成</a><a href="#safety">安全性</a><a href="#demo">デモ</a><a href="#contact">相談</a>
+    </nav>
+  </div>
+</header>
+
+<!-- 1. Hero -->
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">CASE STUDY｜業務整理 × Google Apps Script</div>
+      <h1>GAS × Googleスプレッドシートで<br>スポーツクラブ運営を一元化・効率化</h1>
+      <p class="lead">青森県八戸市の社会人ソフトテニスクラブ「OneStep」で実運用中。練習予定・出欠・参加費・年会費・収支・大会申込・会員名簿を、Google Apps Script と Google スプレッドシートで1つの画面にまとめました。</p>
+      <div class="badges">
+        <span class="badge live">実運用中</span>
+        <span class="badge">Google Apps Script</span>
+        <span class="badge">Google Sheets</span>
+        <span class="badge">496 tests</span>
+        <span class="badge">Claude Code</span>
+        <span class="badge">スマホ対応</span>
+      </div>
+      <div class="btns">
+        <a class="btn" href="demo/index.html">公開デモを触ってみる</a>
+        <a class="btn ghost" href="#problem">事例を読む（約3分）</a>
+      </div>
+    </div>
+    <div class="phone"><img src="assets/screenshots/01-home.png" alt="OneStep のホーム画面。いまの残高、タスクボード（大会の申込締切・会費の未納・次の練習会の出欠人数）、今月の収支" width="750" height="1624"></div>
+  </div>
+</section>
+
+<!-- 2. 課題 -->
+<section id="problem">
+  <div class="wrap">
+    <div class="eyebrow">課題</div>
+    <h2>運営に必要なことが、いくつもの場所と手作業に分かれていた</h2>
+    <p class="lead">クラブの運営は「練習を開いてお金を集める」だけではありません。次のことが、LINE・複数のスプレッドシート・紙・記憶に散らばっていました。</p>
+    <ul class="list">
+      <li>練習予定</li><li>LINE リマインド</li><li>LINE 投票</li><li>参加人数</li><li>参加費</li><li>年間会費</li><li>収支</li><li>大会申込</li><li>会員情報</li>
+    </ul>
+    <p>毎回「今日は誰が来るのか」「誰がいくら払ったのか」「申込締切はいつだったか」を数え直し、探し直す状態でした。担当者が変わると引き継げないことも問題でした。</p>
+  </div>
+</section>
+
+<!-- 3. Before / 5. After（フロー） -->
+<section class="soft" id="flow">
+  <div class="wrap">
+    <div class="eyebrow">Before → After</div>
+    <h2>手作業でつないでいた流れを、ツールの中でつなげた</h2>
+    <p class="lead">左が以前の流れ。矢印の1本1本が管理者の手作業でした。右が OneStep 導入後。メンバー側の LINE 投票は残したまま、管理者の転記・集計を自動化しています。</p>
+    <div class="flows">
+      <div class="flow before">
+        <h3>Before：すべて手作業でつなぐ</h3>
+        <ol class="chain">
+          <li class="keep">LINE で予定を共有・リマインド</li>
+          <li class="keep">LINE 投票<small>メンバーが参加・不参加を押す</small></li>
+          <li class="hand">投票結果を目で確認</li>
+          <li class="hand">人数を数える</li>
+          <li class="hand">参加者を別の表に転記</li>
+          <li class="hand">参加費を計算（人数 × 単価）</li>
+          <li class="hand">練習の記録を書く</li>
+          <li class="hand">収支に転記して集計</li>
+        </ol>
+        <p class="also">これとは別に、<b>年会費・大会申込・会員情報</b>もそれぞれ個別に管理。</p>
+      </div>
+      <div class="flow after">
+        <h3>After：OneStep でつながる</h3>
+        <ol class="chain">
+          <li class="keep">LINE で予定を共有・リマインド<small>変えない</small></li>
+          <li class="keep">LINE 投票<small>変えない。メンバーの操作はそのまま</small></li>
+          <li class="auto">予定<small>月間カレンダー。コート面数・コート代も持つ</small></li>
+          <li class="auto">出欠<small>投票結果を見ながら名前をタップ。人数は自動集計</small></li>
+          <li class="auto">記録<small>予定から日付・会場を写す。入力中に収支が出る</small></li>
+          <li class="auto">収支<small>記録がそのまま収支に。月次・年度の集計は自動</small></li>
+        </ol>
+        <p class="also"><b>年会費・大会申込・会員名簿・バックアップ</b>も同じ画面に一元化。</p>
+      </div>
+    </div>
+    <div class="legend"><span><i style="background:var(--warn)"></i>手作業</span><span><i style="background:var(--blue)"></i>変えていない現場の運用</span><span><i style="background:var(--ok)"></i>ツールが受け持つ</span></div>
+  </div>
+</section>
+
+<!-- 4. 設計思想 -->
+<section id="design">
+  <div class="wrap">
+    <div class="eyebrow">設計思想</div>
+    <h2>自動化のために、現場の運用を変えない</h2>
+    <div class="principle">
+      <div>
+        <div class="key">
+          <b>メンバーが慣れている LINE 投票はそのまま。<br>効率化するのは管理者側だけ。</b>
+          <p>「新しいアプリで投票してください」とお願いすると、現場は必ず崩れます。メンバーの操作は1つも増やさず、管理者が投票結果を見ながら名前をタップするだけで、集計・記録・収支まで自動でつながるようにしました。</p>
+        </div>
+        <ol>
+          <li><b>業務の棚卸しから始める。</b>「予定 → 投票 → 人数確認 → 練習 → 記録 → 収支」の流れを書き出し、どこが手作業かを特定してから設計しました。</li>
+          <li><b>お金の真実は1か所に。</b>収支は「記録」と「その他収支」の2つのシートだけが持ち、会費の入金や貸し借りの精算はそこへ自動で1行ずつ載ります。二重計上が起きない構造です。</li>
+          <li><b>壊れたときに戻せることを、機能より先に。</b>変更履歴・削除の復元・バックアップ・健康診断を、便利機能より前に作りました。</li>
+          <li><b>スマホで、練習の直後にその場で入力できる。</b>PC を開かなくても運営が回るように、画面はスマホ幅を基準に設計しています。</li>
+        </ol>
+      </div>
+      <div>
+        <div class="phone"><img src="assets/screenshots/02-plan-attendance.png" alt="予定タブで練習会の出欠パネルを開いた画面。参加7・欠席2・未定1・未回答2 と集計され、名前のチップをタップして参加／欠席／未定を塗る" width="750" height="1624" loading="lazy"></div>
+        <div class="shot-note">出欠パネル：LINE 投票の結果を見ながら名前を押すだけ。未回答は自動で数えます</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. 主な機能 -->
+<section class="soft" id="features">
+  <div class="wrap">
+    <div class="eyebrow">主な機能（R18 時点・実装済みのもの）</div>
+    <h2>運営の8つの業務を、1つの画面に</h2>
+    <p class="lead">右上の R 番号は導入したリリースです。今後の予定（未実装）は <a href="#process">開発の進め方</a> に分けて書いています。</p>
+    <ul class="feats">
+<li class="feat"><div class="feat-head"><span class="feat-name">ホーム / KPI</span><span class="feat-since">R1</span></div><div class="feat-biz">収支の把握</div><p>いまの残高、今月・先月・今年度・全期間の収入／支出／収支、直近12か月の推移、年度レポート。</p></li>
+<li class="feat"><div class="feat-head"><span class="feat-name">タスクボード</span><span class="feat-since">R14</span></div><div class="feat-biz">運営の抜け防止</div><p>大会の申込締切（7日前・3日前）、会費の未納、未精算の貸し借り、名簿の欠け、次の練習会の出欠人数を1か所に並べる。</p></li>
+<li class="feat"><div class="feat-head"><span class="feat-name">練習予定管理</span><span class="feat-since">R5</span></div><div class="feat-biz">練習予定</div><p>月間カレンダー。月の予定をまとめて貼り付けて登録。コート面数とコート代を予定に持てる。</p></li>
+<li class="feat"><div class="feat-head"><span class="feat-name">出欠管理</span><span class="feat-since">R18</span></div><div class="feat-biz">出欠</div><p>練習会ごとに、参加／欠席／未定を名前のチップで塗る。LINE 投票はそのまま、管理者が結果を写すだけ。</p></li>
+<li class="feat"><div class="feat-head"><span class="feat-name">参加人数集計</span><span class="feat-since">R18</span></div><div class="feat-biz">参加人数</div><p>参加・欠席・未定・未回答を自動で数え、ホームのタスクボードにも出す。停止中のメンバーは数えない。</p></li>
+<li class="feat"><div class="feat-head"><span class="feat-name">練習記録</span><span class="feat-since">R1</span></div><div class="feat-biz">参加費・記録</div><p>予定から日付・会場・時間帯を写して記録。参加メンバーは名簿からタップ、人数は±ボタン、入力しながら画面下に収支が出る。</p></li>
+<li class="feat"><div class="feat-head"><span class="feat-name">収支管理</span><span class="feat-since">R1</span></div><div class="feat-biz">収支</div><p>練習会以外のお金（ボール・備品・エントリー費）も同じ収支に載る。行を開くと LINE に貼れる共有文をコピーできる。</p></li>
+<li class="feat"><div class="feat-head"><span class="feat-name">年間会費</span><span class="feat-since">R4</span></div><div class="feat-biz">年間会費</div><p>年度ごとの請求・入金・未納。未納の人が上に並ぶ。入金は1回＝1行で収支にも自動で載る。</p></li>
+<li class="feat"><div class="feat-head"><span class="feat-name">貸し借り</span><span class="feat-since">R4</span></div><div class="feat-biz">立て替え</div><p>立て替えてもらったお金・貸したお金の台帳。残高の下に「財布の現金（見込み）」が出る。</p></li>
+<li class="feat"><div class="feat-head"><span class="feat-name">大会申込</span><span class="feat-since">R15</span></div><div class="feat-biz">大会申込</div><p>要項の内容を写し、申込までの6ステップをチェック。締切は 7日前で黄・3日前で赤、Google カレンダーにも入る。</p></li>
+<li class="feat"><div class="feat-head"><span class="feat-name">会員名簿</span><span class="feat-since">R6</span></div><div class="feat-biz">会員情報</div><p>本名・住所・生年月日などは本体とは別のスプレッドシートに置き、管理者だけが開ける。各行に今年度の会費状態が出る。</p></li>
+<li class="feat"><div class="feat-head"><span class="feat-name">協会様式出力</span><span class="feat-since">R7</span></div><div class="feat-biz">協会への提出</div><p>協会の「登録クラブ会員名簿」と「クラブ対抗の申込書」の様式へ、名簿から自動で記入する。</p></li>
+<li class="feat"><div class="feat-head"><span class="feat-name">閲覧用ページ</span><span class="feat-since">R8</span></div><div class="feat-biz">メンバーへの共有</div><p>Google ログイン不要の読み取り専用ページ。合言葉つき。個人情報と誰が未収かは出さない。</p></li>
+<li class="feat"><div class="feat-head"><span class="feat-name">バックアップ</span><span class="feat-since">R5</span></div><div class="feat-biz">運営の継続</div><p>本体・名簿・変更履歴の3ファイルを世代印つきで複製。週1回の自動実行も設定できる。</p></li>
+<li class="feat"><div class="feat-head"><span class="feat-name">復旧</span><span class="feat-since">R5</span></div><div class="feat-biz">運営の継続</div><p>削除は「隠すだけ」なので画面から戻せる。バックアップ世代からの復旧も用意。</p></li>
+<li class="feat"><div class="feat-head"><span class="feat-name">健康診断</span><span class="feat-since">R4</span></div><div class="feat-biz">データの正しさ</div><p>台帳と収支の食い違い、スプレッドシートを直接編集した行を検出して一覧にする。</p></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 7. Before / After 表 -->
+<section id="before-after">
+  <div class="wrap">
+    <div class="eyebrow">Before / After</div>
+    <h2>客観的に確認できる変化だけを載せています</h2>
+    <p class="lead">「月◯時間削減」のような数字は、実測してから掲載します。ここに書いた数字は本体のコード・仕様から確定できるものだけです。</p>
+    <div class="table-wrap">
+<table class="ba"><thead><tr><th>業務</th><th>Before</th><th>After</th></tr></thead><tbody><tr><th>管理場所</th><td>LINE のトーク・投票、複数のスプレッドシート、手元のメモに分散</td><td>OneStep の1画面に集約（予定・出欠・記録・収支・会費・大会・名簿）</td></tr>
+<tr><th>出欠</th><td>LINE 投票の結果を見ながら別の場所で管理</td><td>LINE 投票はそのまま。管理画面で参加／欠席／未定を名前チップで高速入力。未回答は自動</td></tr>
+<tr><th>集計</th><td>参加人数・参加費を目視と手計算</td><td>自動集計。記録の入力中に画面下へ収支が出る</td></tr>
+<tr><th>記録 → 収支</th><td>練習の記録と収支を別々に転記</td><td>予定から記録へ写し、記録がそのまま収支になる（同じ予定から2件目は作れない）</td></tr>
+<tr><th>年会費</th><td>表を目で追って未納を探す</td><td>未納の人が上に並ぶ。入金は1回＝1行で収支にも自動で載る</td></tr>
+<tr><th>大会申込</th><td>締切は記憶と紙の要項頼み</td><td>7日前・3日前に色で警告し、Google カレンダーにも登録。申込書は様式へ自動記入<div class="metric">締切警告 7日前 / 3日前（本体の定数）</div></td></tr>
+<tr><th>会員情報</th><td>紙と個人メモ、協会様式は手書き</td><td>管理者限定の別ファイルで管理。協会様式へボタン1つで書き出し</td></tr>
+<tr><th>復旧</th><td>明確な復旧導線なし</td><td>バックアップ（世代印つき）・削除の復元・健康診断</td></tr></tbody></table><p class="note">削減時間は実測してから掲載します（未計測のため数字は出していません）。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. 技術構成図 -->
+<section class="soft" id="arch">
+  <div class="wrap">
+    <div class="eyebrow">技術構成</div>
+    <h2>Google のサービスだけで動く。AI は本番の処理に入っていない</h2>
+    <p class="lead">左が本番で毎週動いている処理。右は開発の進め方で、本番とは別枠です。Claude Code は要件整理・設計・実装・テストの支援に使っており、本番システムが AI を呼び出すことはありません。</p>
+    <div class="arch">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 600" font-family="-apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP', sans-serif" role="img" aria-labelledby="t">
+  <title id="t">OneStep の技術構成: 本番の処理（管理者 → Web App → Google Apps Script → Google Sheets）と、別枠の開発プロセス（Claude Code・GitHub・Obsidian）</title>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#1f3b63"/>
+    </marker>
+    <marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#5b6b82"/>
+    </marker>
+  </defs>
+  <style>
+    .box { fill:#ffffff; stroke:#1f3b63; stroke-width:1.5; rx:8; }
+    .box.g { fill:#eef4fb; }
+    .box.dev { fill:#f6f7f9; stroke:#5b6b82; stroke-dasharray:5 4; }
+    .lbl { fill:#0f2a4a; font-size:14px; font-weight:700; }
+    .sub { fill:#4a5a70; font-size:12px; }
+    .sec { fill:#1f3b63; font-size:15px; font-weight:700; }
+    .sec.dev { fill:#5b6b82; }
+    .ln { stroke:#1f3b63; stroke-width:1.6; fill:none; marker-end:url(#arr); }
+    .ln.dev { stroke:#5b6b82; marker-end:url(#arr2); }
+    .note { fill:#6b7a90; font-size:11px; }
+  </style>
+
+  <!-- 左: 本番の処理 -->
+  <rect x="16" y="16" width="620" height="568" rx="12" fill="#fbfcfe" stroke="#d7e0ec"/>
+  <text x="36" y="44" class="sec">本番の処理（クラブの運営で毎週動いているもの）</text>
+
+  <!-- 利用者 -->
+  <rect x="60" y="66" width="200" height="56" class="box"/>
+  <text x="160" y="90" text-anchor="middle" class="lbl">管理者（スマホ）</text>
+  <text x="160" y="108" text-anchor="middle" class="sub">Google ログイン</text>
+
+  <rect x="380" y="66" width="200" height="56" class="box"/>
+  <text x="480" y="90" text-anchor="middle" class="lbl">一般メンバー</text>
+  <text x="480" y="108" text-anchor="middle" class="sub">合言葉・ログイン不要・読み取り専用</text>
+
+  <!-- Web App -->
+  <path d="M160 122 V160" class="ln"/>
+  <path d="M480 122 V160" class="ln"/>
+  <rect x="60" y="162" width="200" height="56" class="box"/>
+  <text x="160" y="186" text-anchor="middle" class="lbl">OneStep Web App</text>
+  <text x="160" y="204" text-anchor="middle" class="sub">管理者用（入力・集計・保守）</text>
+
+  <rect x="380" y="162" width="200" height="56" class="box"/>
+  <text x="480" y="186" text-anchor="middle" class="lbl">閲覧用ページ</text>
+  <text x="480" y="204" text-anchor="middle" class="sub">同じ画面の閲覧用ビルド</text>
+
+  <!-- GAS -->
+  <path d="M160 218 V256" class="ln"/>
+  <path d="M480 218 V256" class="ln"/>
+  <rect x="60" y="258" width="520" height="62" class="box g"/>
+  <text x="320" y="284" text-anchor="middle" class="lbl">Google Apps Script（サーバー）</text>
+  <text x="320" y="304" text-anchor="middle" class="sub">権限の判定・変更履歴・集計・行の印（直接編集の検知）・再送の収束</text>
+
+  <!-- Sheets 群 -->
+  <path d="M120 320 V366" class="ln"/>
+  <path d="M320 320 V366" class="ln"/>
+  <path d="M520 320 V366" class="ln"/>
+
+  <rect x="36" y="368" width="180" height="70" class="box"/>
+  <text x="126" y="392" text-anchor="middle" class="lbl">Google Sheets（本体）</text>
+  <text x="126" y="410" text-anchor="middle" class="sub">予定・出欠・記録・収支</text>
+  <text x="126" y="426" text-anchor="middle" class="sub">会費・貸借・大会・設定</text>
+
+  <rect x="230" y="368" width="180" height="70" class="box"/>
+  <text x="320" y="392" text-anchor="middle" class="lbl">会員名簿（別ファイル）</text>
+  <text x="320" y="410" text-anchor="middle" class="sub">本名・住所など。管理者限定</text>
+  <text x="320" y="426" text-anchor="middle" class="sub">本体とは共有範囲を分ける</text>
+
+  <rect x="424" y="368" width="180" height="70" class="box"/>
+  <text x="514" y="392" text-anchor="middle" class="lbl">変更履歴 / Backup</text>
+  <text x="514" y="410" text-anchor="middle" class="sub">誰がいつ何を変えたか</text>
+  <text x="514" y="426" text-anchor="middle" class="sub">世代印つきの複製</text>
+
+  <!-- Calendar / Drive -->
+  <path d="M320 438 V478" class="ln"/>
+  <rect x="120" y="480" width="180" height="56" class="box"/>
+  <text x="210" y="504" text-anchor="middle" class="lbl">Google Calendar</text>
+  <text x="210" y="522" text-anchor="middle" class="sub">大会の申込締切を登録</text>
+  <rect x="340" y="480" width="180" height="56" class="box"/>
+  <text x="430" y="504" text-anchor="middle" class="lbl">Google Drive</text>
+  <text x="430" y="522" text-anchor="middle" class="sub">協会様式の複製・週次バックアップ</text>
+  <path d="M320 478 H210 V480" class="ln"/>
+  <path d="M320 478 H430 V480" class="ln"/>
+
+  <text x="36" y="566" class="note">※ 本番の処理に AI は入っていません。すべて Google Apps Script と Google の各サービスで動きます。</text>
+
+  <!-- 右: 開発プロセス（別枠） -->
+  <rect x="656" y="16" width="288" height="568" rx="12" fill="#f9fafb" stroke="#cfd6df" stroke-dasharray="6 4"/>
+  <text x="676" y="44" class="sec dev">開発プロセス（本番とは別枠）</text>
+
+  <rect x="680" y="66" width="240" height="196" class="box dev"/>
+  <text x="800" y="92" text-anchor="middle" class="lbl">Claude Code</text>
+  <text x="700" y="120" class="sub">├ 要件整理（業務の棚卸し）</text>
+  <text x="700" y="142" class="sub">├ 設計（提案書・自己レビュー）</text>
+  <text x="700" y="164" class="sub">├ 実装</text>
+  <text x="700" y="186" class="sub">├ テスト（自動テスト 496 件）</text>
+  <text x="700" y="208" class="sub">└ Git 差分確認・本番反映前の確認</text>
+  <text x="700" y="244" class="note">開発支援。本番の処理には接続しない</text>
+
+  <path d="M800 262 V300" class="ln dev"/>
+  <rect x="680" y="302" width="240" height="70" class="box dev"/>
+  <text x="800" y="328" text-anchor="middle" class="lbl">GitHub（private）</text>
+  <text x="800" y="348" text-anchor="middle" class="sub">ブランチ・レビュー・CI でテスト</text>
+  <text x="800" y="364" text-anchor="middle" class="sub">clasp で Apps Script へ反映</text>
+
+  <path d="M800 372 V410" class="ln dev"/>
+  <rect x="680" y="412" width="240" height="70" class="box dev"/>
+  <text x="800" y="438" text-anchor="middle" class="lbl">Obsidian</text>
+  <text x="800" y="458" text-anchor="middle" class="sub">設計書・判断の記録・レビュー履歴</text>
+  <text x="800" y="474" text-anchor="middle" class="sub">「なぜそう作ったか」を残す</text>
+
+  <text x="680" y="530" class="note">設計 → 自己レビュー → GO → 実装 → テスト</text>
+  <text x="680" y="548" class="note">→ Git 差分確認 → 本番反映前の確認 → 反映</text>
+</svg>
+
+    </div>
+    <p class="note" style="margin-top:10px">図の元ファイル: <code>assets/architecture/architecture.svg</code></p>
+  </div>
+</section>
+
+<!-- 9. 品質・安全性 -->
+<section id="safety">
+  <div class="wrap">
+    <div class="eyebrow">品質・安全性</div>
+    <h2>クラブのお金と個人情報を扱うので、「戻せる」「見せない」を作り込んだ</h2>
+    <div class="safety">
+      <div class="card"><h3>Google ログインで管理者を制御</h3><p>入力できるのは名簿に登録された管理者だけ。誰が入力したかは Google アカウントで記録されます。</p></div>
+      <div class="card"><h3>会員の個人情報は別ファイル</h3><p>本名・住所・生年月日は本体とは別のスプレッドシートに置き、管理者だけが開けます。共有範囲を分けられる作りです。</p></div>
+      <div class="card"><h3>閲覧専用ページ</h3><p>Google アカウントの無いメンバーには、合言葉つきの読み取り専用ページを配ります。個人情報と「誰が未収か」は出しません。</p></div>
+      <div class="card"><h3>変更履歴</h3><p>誰がいつ何を変えたかを別ファイルに残します。履歴を書けないときは保存自体を止める（安全側）作りです。</p></div>
+      <div class="card"><h3>論理削除</h3><p>削除は「隠すだけ」。消した記録は画面から一覧して戻せます。</p></div>
+      <div class="card"><h3>行ハッシュ（直接編集の検知）</h3><p>スプレッドシートを直接編集した行には印が合わなくなり、保存時に止まって健康診断に出ます。手で直した数字が黙って混ざりません。</p></div>
+      <div class="card"><h3>バックアップと復旧</h3><p>本体・名簿・履歴の3ファイルを世代印つきで複製。週1回の自動実行も設定でき、世代から復旧できます。</p></div>
+      <div class="card"><h3>健康診断</h3><p>台帳と収支の食い違い、直接編集された行を一覧にします。設定タブのボタン1つで実行。</p></div>
+      <div class="card"><h3>496 件の自動テスト</h3><p>お金の計算、再送しても二重登録にならないこと、画面とサーバーの計算が同じ結果になることなどを固定しています。</p></div>
+      <div class="card"><h3>Git 管理</h3><p>すべての変更をブランチとレビューを通して本番に反映。CI でテストが走ります。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. 開発の進め方 -->
+<section class="soft" id="process">
+  <div class="wrap">
+    <div class="eyebrow">開発の進め方</div>
+    <h2>設計してから作る。作ったら確かめてから反映する</h2>
+    <div class="process">
+      <div>
+        <ul class="steps"><li>要件整理</li><li>設計書</li><li>自己レビュー</li><li>GO</li><li>実装</li><li>テスト</li><li>Git 差分確認</li><li>本番前確認</li><li>反映</li></ul>
+        <p style="margin-top:14px">要件整理から実装・テストまで <b>Claude Code</b> を活用し、設計と判断の記録は Obsidian に残しています。小さなリリース（R1、R2…）に分け、毎回テストと差分の確認を通してから本番に反映します。</p>
+        <div class="callout">AI は開発の道具です。本番の処理（Google Apps Script）は AI を呼び出しません。</div>
+        <h3>今後の予定（未実装）</h3>
+<ul class="up"><li><span class="tl-rel">R19</span><span class="badge muted">未実装</span> 参加費の見込み表示、当日18:00の人数スナップショット、予定から記録への引き継ぎ</li>
+<li><span class="tl-rel">R20</span><span class="badge muted">未実装</span> ビジター申込（Google フォームの回答を取り込む）</li></ul>
+      </div>
+      <div>
+        <h3 style="margin-top:0">リリースの歩み</h3>
+<ol class="tl"><li><span class="tl-date">2026-08-27</span><span class="tl-rel">初期</span><span class="tl-sum">Git 管理を開始。既存スプレッドシートの記録を取り込む</span></li>
+<li><span class="tl-date">2026-09-03</span><span class="tl-rel">R1〜R3</span><span class="tl-sum">お金の正しさ（版と操作ID・請求額のガード）、変更履歴のフェイルクローズ、差分応答による軽さ</span></li>
+<li><span class="tl-date">2026-09-03</span><span class="tl-rel">R4</span><span class="tl-sum">会費の入金と貸し借りの精算を「1回＝1行」に。取り消し／戻す、健康診断</span></li>
+<li><span class="tl-date">2026-09-03</span><span class="tl-rel">R5</span><span class="tl-sum">削除の復元、直接編集の検知（行ハッシュ）、バックアップと復旧、予定の貼り付け</span></li>
+<li><span class="tl-date">2026-09-03</span><span class="tl-rel">R6〜R7</span><span class="tl-sum">個人情報を別ファイル（会員名簿）へ分離。名簿の一括登録と協会様式への書き出し</span></li>
+<li><span class="tl-date">2026-09-04</span><span class="tl-rel">R8</span><span class="tl-sum">閲覧用ページ（Google ログイン不要・合言葉・読み取り専用）</span></li>
+<li><span class="tl-date">2026-09-04</span><span class="tl-rel">R10〜R11</span><span class="tl-sum">出場メンバーの選択とクラブ対抗申込書。スマホ向けの画面調整</span></li>
+<li><span class="tl-date">2026-09-05</span><span class="tl-rel">R14</span><span class="tl-sum">予定から記録へ写す、名簿の欠け一覧、ホームのタスクボード</span></li>
+<li><span class="tl-date">2026-09-08</span><span class="tl-rel">R15〜R16</span><span class="tl-sum">大会申込管理（締切の警告・Google カレンダー）、画面の整理</span></li>
+<li><span class="tl-date">2026-09-09</span><span class="tl-rel">R17</span><span class="tl-sum">全体レビューの指摘に対応（安全側の作り込み）</span></li>
+<li><span class="tl-date">2026-09-13</span><span class="tl-rel">R18</span><span class="tl-sum">出欠管理（出欠シート・予定行の出欠パネル・コート面数とコート代）。本番 版38 / 閲覧用 版15</span></li></ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 11. スクリーンショット -->
+<section id="shots">
+  <div class="wrap">
+    <div class="eyebrow">画面</div>
+    <h2>スマホ幅で設計した画面（すべて架空データ）</h2>
+    <div class="gallery">
+      <figure><div class="phone"><img src="assets/screenshots/01-home.png" alt="ホーム" loading="lazy"></div><figcaption>ホーム：残高・KPI・タスクボード・次の練習会</figcaption></figure>
+      <figure><div class="phone"><img src="assets/screenshots/02-plan-attendance.png" alt="予定と出欠パネル" loading="lazy"></div><figcaption>予定：出欠パネルを開いた状態</figcaption></figure>
+      <figure><div class="phone"><img src="assets/screenshots/03-record.png" alt="記録" loading="lazy"></div><figcaption>記録：メンバーチップ・人数・参加費・画面下の収支</figcaption></figure>
+      <figure><div class="phone"><img src="assets/screenshots/04-dues.png" alt="会費" loading="lazy"></div><figcaption>会費：入金と未納（未納が上に並ぶ）</figcaption></figure>
+      <figure><div class="phone"><img src="assets/screenshots/05-tournament.png" alt="大会" loading="lazy"></div><figcaption>大会：締切の警告と申込チェックリスト</figcaption></figure>
+      <figure class="wide"><img src="assets/screenshots/06-settings.png" alt="設定（メンテナンス）" loading="lazy"><figcaption>設定：健康診断・バックアップ・消した記録を戻す（PC 幅）</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- 12. 公開デモ -->
+<section class="soft" id="demo">
+  <div class="wrap">
+    <div class="eyebrow">公開デモ</div>
+    <h2>実際の画面を、架空データで触れます</h2>
+    <p class="lead">本番と同じ画面コードに、架空のクラブ（メンバー 12 名）のデータを埋め込んだ静的ページです。出欠を塗って保存すると集計が変わります（変更はブラウザの中だけで、再読み込みで元に戻ります）。</p>
+    <div class="btns"><a class="btn" href="demo/index.html">公開デモを開く</a></div>
+    <h3>本番との違い</h3>
+    <div class="cards">
+      <div class="card"><h3>データ</h3><p>本番はクラブのスプレッドシート。デモは完全な架空データ（実在のメンバー・会場・金額は含みません）。</p></div>
+      <div class="card"><h3>サーバー</h3><p>本番は Google Apps Script が権限・履歴・集計を処理。デモはブラウザ内の簡易な代役で、通信しません。</p></div>
+      <div class="card"><h3>ログイン</h3><p>本番は Google ログインで管理者を判定。デモは管理者として開いた状態です。</p></div>
+      <div class="card"><h3>外部連携</h3><p>Google カレンダー・Drive への書き出し、バックアップの複製はデモでは動きません（メッセージだけ出ます）。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 13. CTA -->
+<section class="cta" id="contact">
+  <div class="wrap">
+    <h2>手作業やスプレッドシートで回している業務の整理・自動化について、ご相談いただけます</h2>
+    <p>「今の運用を変えずに、管理側の手間だけ減らしたい」という形での相談を歓迎します。小規模団体・店舗・部署の Google スプレッドシート × Google Apps Script による自動化が得意です。</p>
+    <a class="btn" href="README.md">README（発注者向けの説明）を読む</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>作者: Ryuma｜プロジェクト: OneStep（青森県八戸市）</span>
+    <span>更新: 2026-09-14｜R18 時点・本番 版38 / 閲覧用 版15</span>
+  </div>
+</footer>
+
+</body>
+</html>

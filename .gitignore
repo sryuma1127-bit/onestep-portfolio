@@ -1,0 +1,10 @@
+# 実在名の照合リスト（Git 管理外）。ハッシュ版も入れない:
+# 2〜3文字の姓は辞書で総当たりすれば元に戻せるため、公開すると実在メンバーの姓の一覧を渡すことになる
+tools/local-blocklist.txt
+tools/blocklist.sha256
+node_modules/
+.DS_Store
+*.log
+
+# デモ生成の置き換え表（置き換え元に実在の会場名などを含む）。形の見本は tools/local-replacements.example.json
+tools/local-replacements.json

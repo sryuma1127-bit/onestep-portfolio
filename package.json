@@ -1,0 +1,15 @@
+{
+  "name": "onestep-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "OneStep（GAS × Google スプレッドシートのクラブ運営ツール）の事例紹介・公開デモ",
+  "scripts": {
+    "build:demo": "tools/build-demo.sh",
+    "build:site": "node tools/build-site.js",
+    "shoot": "node tools/shoot.js",
+    "check": "tools/check-public.sh"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^24.0.0"
+  }
+}
