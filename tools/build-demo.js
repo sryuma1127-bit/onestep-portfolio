@@ -8,8 +8,10 @@
  *   sanitize.py で検査してから使う。
  *
  * 使い方:  node tools/build-demo.js [本体リポジトリのパス] [コミット]
- *   環境変数 DEMO_TODAY=YYYY-MM-DD  … 日付の平行移動の基準（省略時は今日・東京時刻）。
- *                                     スクリーンショットを再現したいときに固定する。
+ *
+ * ★日付は「開いた日」に合わせてブラウザ側でずらす（ビルド時に焼き込まない）。
+ *   そのため作り直さなくてもデモが古くならない。詳しくは buildStub の中の shiftForToday。
+ *   基準日を変えて確かめたいときは、開くときに ?today=YYYY-MM-DD を付ける（例: demo/index.html?today=2026-12-24）。
  *
  * 出力: demo/index.html（自己完結。外部通信なし）
  */
@@ -22,12 +24,6 @@ const ROOT = path.join(__dirname, '..');
 const REPO = process.argv[2] || path.join(os.homedir(), 'One-Step');
 const COMMIT = process.argv[3] || '88e191b';
 const OUT = path.join(ROOT, 'demo', 'index.html');
-
-function tokyoToday() {
-  return new Date().toLocaleString('sv-SE', { timeZone: 'Asia/Tokyo' }).slice(0, 10);
-}
-const TODAY = process.env.DEMO_TODAY || tokyoToday();
-if (!/^\d{4}-\d{2}-\d{2}$/.test(TODAY)) throw new Error('DEMO_TODAY は YYYY-MM-DD で');
 
 // 1. 本体から画面コードを「読むだけ」で取り出す
 let html = execFileSync('git', ['-C', REPO, 'show', COMMIT + ':Dashboard.html'], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
@@ -47,28 +43,26 @@ const srcPath = path.join(tmp, 'Dashboard.src.html');
 fs.writeFileSync(srcPath, html);
 sanitize(srcPath, '取り出した Dashboard.html');
 
-// 2. 架空データを読み、日付を今日に合わせて平行移動する
-const raw = JSON.parse(fs.readFileSync(path.join(__dirname, 'demo-data.json'), 'utf8'));
-const shiftDays = daysBetween(raw.anchor, TODAY);
-const data = shiftDates(raw, shiftDays);
-const fyStart = data.settings.fiscalStartMonth || 4;
-const fy = fiscalYearOf(TODAY, fyStart);
-(data.dues || []).forEach((d) => { d.fiscalYear = fy; });
-data.generatedAt = TODAY + ' 09:00';
+// 2. 架空データを読む（日付はここでは動かさない。開いた日に合わせてブラウザ側でずらす）
+const data = JSON.parse(fs.readFileSync(path.join(__dirname, 'demo-data.json'), 'utf8'));
 const deleted = data.demoDeleted || [];
 delete data.demoDeleted;
-delete data.anchor;
+delete data._dates;
 
 // 3. 偽サーバーと注意書きを差し込む
 const stub = buildStub(data, deleted);
 if (html.indexOf('<body>') < 0) throw new Error('Dashboard.html に <body> が見つかりません');
+if (html.indexOf('</head>') < 0) throw new Error('Dashboard.html に </head> が見つかりません');
 let out = html.replace('<body>', '<body>' + stub);
 out = out.replace(/<title>[^<]*<\/title>/, '<title>OneStep 公開デモ（架空データ）</title>');
+// ★アイコンを指定しないと、ブラウザが配信元の一番上（/favicon.ico）を取りに行って 404 になる。
+//   リポジトリ直下の favicon.ico を相対で指す（外部への通信は増えない）。
+out = out.replace('</head>', '<link rel="icon" href="../favicon.ico" sizes="any">\n<link rel="apple-touch-icon" href="../favicon.png">\n</head>');
 fs.mkdirSync(path.dirname(OUT), { recursive: true });
 fs.writeFileSync(OUT, out);
 sanitize(OUT, '出力 demo/index.html');
 fs.rmSync(tmp, { recursive: true, force: true });
-console.log('作りました: ' + OUT + ' (' + Math.round(out.length / 1024) + ' KB, 基準日 ' + TODAY + ', 元 ' + COMMIT + ')');
+console.log('作りました: ' + OUT + ' (' + Math.round(out.length / 1024) + ' KB, 日付は開いた日に合わせて可変, 元 ' + COMMIT + ')');
 
 // ---------------------------------------------------------------------------
 
@@ -79,24 +73,6 @@ function sanitize(file, label) {
     console.error(label + ' に公開できない内容が含まれています。中止します。');
     process.exit(1);
   }
-}
-
-function daysBetween(a, b) {
-  return Math.round((Date.UTC(+b.slice(0, 4), +b.slice(5, 7) - 1, +b.slice(8, 10)) - Date.UTC(+a.slice(0, 4), +a.slice(5, 7) - 1, +a.slice(8, 10))) / 86400000);
-}
-function shiftDate(s, days) {
-  const d = new Date(Date.UTC(+s.slice(0, 4), +s.slice(5, 7) - 1, +s.slice(8, 10)) + days * 86400000);
-  return d.getUTCFullYear() + '-' + String(d.getUTCMonth() + 1).padStart(2, '0') + '-' + String(d.getUTCDate()).padStart(2, '0');
-}
-function shiftDates(v, days) {
-  if (typeof v === 'string') return v.replace(/\d{4}-\d{2}-\d{2}/g, (m) => shiftDate(m, days));
-  if (Array.isArray(v)) return v.map((x) => shiftDates(x, days));
-  if (v && typeof v === 'object') { const o = {}; Object.keys(v).forEach((k) => { o[k] = shiftDates(v[k], days); }); return o; }
-  return v;
-}
-function fiscalYearOf(dateKey, startMonth) {
-  const y = +dateKey.slice(0, 4), m = +dateKey.slice(5, 7);
-  return m >= startMonth ? y : y - 1;
 }
 
 function buildStub(data, deleted) {
@@ -118,6 +94,77 @@ function buildStub(data, deleted) {
 /* ====== ここから下は公開デモ用の偽サーバー。本番には含まれない。通信は一切しない ====== */
 window.__FAKE__ = ${JSON.stringify(data)};
 window.__DEMO_DELETED__ = ${JSON.stringify(deleted)};
+
+/* ------------------------------------------------------------------
+ * 開いた日に合わせて日付をずらす（デモが古くならないように）。
+ *
+ * ★ずらす量は必ず 7 日単位。曜日を保つので、練習会は土曜・水曜のままになる。
+ * ★次の条件を同時に満たす量を選ぶ。
+ *     ・練習の記録（いちばん新しいもの）は今日より前
+ *     ・大会の申込締切と次の練習会は今日より後
+ *   データ側で「記録の最終日」と「最も早い締切」の間を 8 日以上あけてあるので、
+ *   条件を満たす 7 の倍数が必ず1つ以上ある（tools/demo-data.json の _dates を参照）。
+ * ★確かめるときは ?today=YYYY-MM-DD を付ける（例: ?today=2026-12-24）。
+ * ------------------------------------------------------------------ */
+(function () {
+  var F = window.__FAKE__, DEL = window.__DEMO_DELETED__;
+  var q = /[?&]today=(\\d{4}-\\d{2}-\\d{2})/.exec(location.search);
+  var today = q ? q[1] : tokyoToday();
+  // ★?today= を付けたときは画面の時計も同じ日にする（確かめるときに、データだけ動いて画面の判定が今日のまま、
+  //   という食い違いを起こさないため）。付けていない通常の表示では何も置き換えない。
+  if (q) {
+    var fixed = new Date(today + 'T12:00:00+09:00').getTime();
+    var RealDate = Date;
+    var FakeDate = function () {
+      if (arguments.length === 0) return new RealDate(fixed);
+      return new (Function.prototype.bind.apply(RealDate, [null].concat([].slice.call(arguments))))();
+    };
+    FakeDate.now = function () { return fixed; };
+    FakeDate.UTC = RealDate.UTC; FakeDate.parse = RealDate.parse; FakeDate.prototype = RealDate.prototype;
+    window.Date = FakeDate;
+  }
+  var day = function (s) { return Math.round(Date.UTC(+s.slice(0, 4), +s.slice(5, 7) - 1, +s.slice(8, 10)) / 86400000); };
+  var plans = {};
+  (F.plans || []).forEach(function (p) { plans[p.id] = p; });
+  // 過去でいてほしい日のうち、いちばん新しいもの
+  var last = (F.events || []).map(function (e) { return e.date; }).sort().pop();
+  // 未来でいてほしい日のうち、いちばん早いもの（申込締切と、出欠が入っている練習会）
+  var firsts = (F.tournaments || []).filter(function (t) { return t.status === '予定' && t.deadline; }).map(function (t) { return t.deadline; })
+    .concat((F.attendance || []).map(function (a) { return plans[a.planId] ? plans[a.planId].date : null; }).filter(Boolean));
+  var first = firsts.sort()[0];
+  var t0 = day(today);
+  var lo = t0 + 1 - day(first);           // これ以上ずらせば「締切・次の練習会」が未来になる
+  var hi = t0 - 1 - day(last);            // これ以下なら「練習の記録」が過去のままになる
+  var shift = Math.ceil(lo / 7) * 7;
+  if (shift > hi) shift = Math.floor(hi / 7) * 7;   // 念のため（データの間隔が足りないとき）
+  if (shift) {
+    var move = function (v) {
+      if (typeof v === 'string') {
+        return v.replace(/\\d{4}-\\d{2}-\\d{2}/g, function (m) {
+          var d = new Date((day(m) + shift) * 86400000);
+          return d.getUTCFullYear() + '-' + String(d.getUTCMonth() + 1).padStart(2, '0') + '-' + String(d.getUTCDate()).padStart(2, '0');
+        });
+      }
+      if (Array.isArray(v)) return v.map(move);
+      if (v && typeof v === 'object') { Object.keys(v).forEach(function (k) { v[k] = move(v[k]); }); return v; }
+      return v;
+    };
+    move(F); move(DEL);
+  }
+  // 会費の年度は「今日」から決める（4月はじまり）
+  var start = (F.settings && F.settings.fiscalStartMonth) || 4;
+  var fy = (+today.slice(5, 7) >= start) ? +today.slice(0, 4) : +today.slice(0, 4) - 1;
+  (F.dues || []).forEach(function (d) { d.fiscalYear = fy; });
+  F.generatedAt = today + ' 09:00';
+  function tokyoToday() {
+    var s = '';
+    try { s = new Date().toLocaleString('sv-SE', { timeZone: 'Asia/Tokyo' }).slice(0, 10); } catch (e) { s = ''; }
+    if (/^\\d{4}-\\d{2}-\\d{2}$/.test(s)) return s;
+    var d = new Date(Date.now() + 9 * 60 * 60 * 1000);   // 日本は夏時間が無いので UTC+9
+    return d.getUTCFullYear() + '-' + String(d.getUTCMonth() + 1).padStart(2, '0') + '-' + String(d.getUTCDate()).padStart(2, '0');
+  }
+})();
+
 window.__DELAY__ = /[?&]shot=/.test(location.search) ? 30 : 350;
 if (/[?&]shot=/.test(location.search)) {
   document.body.className += ' shot';
